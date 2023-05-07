@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Chỉnh sửa phòng</title>
+</head>
+
+<body>
+	<h1>Chỉnh sửa thông tin phòng <span th:text="${room.name}"></span></h1>
+	<form th:object="${room}" th:action="@{/manage/room/change}" method="post">
+		<table>
+			<tr>
+				<td th:text="'Tên phòng: '" align="left"></td>
+				<td th:text="*{name}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Loại phòng: '" align="left"></td>
+				<td>
+					<input type="radio" name="loaiphong" th:field="${room.type}" th:value="'Thường'" th:text="'Thường'"
+						checked>
+					<input type="radio" name="loaiphong" th:field="${room.type}" th:value="'VIP'" th:text="'VIP'">
+				</td>
+			</tr>
+			<tr>
+				<td th:text="'Giá phòng: '" align="left"></td>
+				<td><span><input type="number" th:field="${room.price}"></span><span th:text="'/ngày'"></span></td>
+			</tr>
+			<tr>
+				<td th:text="'Chi tiết: '" align="left"></td>
+				<td><input type="text" th:field="${room.description}"></td>
+			</tr>
+			<tr>
+				<td>
+					<button><a th:href="@{/}" th:text="'Trang chủ'"></a></button>
+				</td>
+				<td><input type="submit" value="Xác nhận"></td>
+			</tr>
+		</table>
+	</form>
+
+</body>

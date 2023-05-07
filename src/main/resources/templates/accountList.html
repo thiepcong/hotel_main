@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Tài khoản</title>
+</head>
+
+<body>
+	<h1>Danh sách tài khoản</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>Username</th>
+				<th>Trạng thái</th>
+				<th>Vai trò</th>
+				<th>Ngày tạo</th>
+				<th>Họ tên</th>
+				<th>Số CCCD</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr th:each="account:${accounts}">
+				<td th:text="${account.username}" align="center"></td>
+
+				<td th:if="${account.isActive}" th:text="'Hoạt động'" align="center"></td>
+				<td th:unless="${account.isActive}" th:text="'Bị khoá'" align="center"></td>
+
+				<td th:switch="${account.roles}">
+					<span th:case="'ROLE_MANAGER'" th:text="'Quản lý'"></span>
+					<span th:case="'ROLE_RECEPTIONIST'" th:text="'Tiếp tân'"></span>
+					<span th:case="'ROLE_USER'" th:text="'Khách hàng'"></span>
+				</td>
+
+				<td th:text="${account.createdAt}" align="center"></td>
+				<td th:text="${account.user.fullname}" align="center"></td>
+				<td th:text="${account.user.idCard}" align="center"></td>
+
+				<td th:if="${account.isActive}">
+					<button><a th:href="@{/account/disable/{id}(id=${account.id})}" th:text="'Khoá'"
+							align="center"></a></button>
+				</td>
+				<td th:unless="${account.isActive}">
+					<button><a th:href="@{/account/enable/{id}(id=${account.id})}" th:text="'Khôi phục'"
+							align="center"></a></button>
+				</td>
+				<td>
+					<button><a th:href="@{/account/role/{id}(id=${account.id})}" th:text="'Change role'">
+					</a></button>
+				</td>
+				<td>
+					<button><a th:href="@{/account/delete/{id}(id=${account.id})}" th:text="'Xóa Tài Khoản'">
+					</a></button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<button><a th:href="@{/}" th:text="'Trang chủ'"></a></button>
+</body>
+
+</html>

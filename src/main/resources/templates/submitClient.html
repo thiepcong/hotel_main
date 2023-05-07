@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+
+<head>
+	<title>Tao tai khoan</title>
+</head>
+
+<body>
+	<h1>Thông tin cá nhân</h1>
+	<form th:action="@{/account/submitClient}" method="post">
+		<table th:object="${client}">
+			<tr>
+				<td th:text="'Tài khoản ngân hàng: '"></td>
+				<td><input type="text" th:field="*{bankAccount}"></td>
+				<td th:if="${#fields.hasErrors('bankAccount')}" th:errors="*{bankAccount}"></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Đăng kí"></td>
+				<td><button><a th:href="@{/}" th:text="'Trang chủ'"></a></button></td>
+			</tr>
+		</table>
+
+	</form>
+</body>
+
+</html>

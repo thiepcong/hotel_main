@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+<head>
+	<title>Home page</title>
+	<meta charset="UTF-8">
+</head>
+
+<body>
+	<h1>Hotel Team Eight Welcome <span th:if="${account}" th:text="${account.username}"></span><span>!</span></h1>
+
+	<ul>
+		<li><a th:href="@{/}">Home</a></li>
+		<span th:if="${account}" th:switch="${account.roles}">
+			<span th:case="ROLE_USER">
+				<li><a th:href="@{/room}" th:text="'Xem danh sách các phòng'"></a></li>
+				<li><a th:href="@{/booking/list}" th:text="'Xem Danh sách đặt phòng'"></a></button></li>
+			</span>
+			<span th:case="ROLE_ADMIN">
+				<li><a th:href="@{/account/list}" th:text="'Quản lý tài khoản'"></a></li>
+			</span>
+			<span th:case="ROLE_MANAGER">
+				<li><a th:href="@{/manage/room}" th:text="'Quản lý phòng'"></a></li>
+				<!-- <td><button><a th:href="@{/manage/booking}" th:text="'Yêu cầu đặt phòng'"></a></button></td> -->
+			</span>
+		</span>
+		<span th:unless="${account}">
+			<li><a th:href="@{/room}" th:text="'Xem danh sách các phòng'"></a></li>
+		</span>
+		<li><a th:href="@{/account}" th:text="'Tài khoản'"></a></li>
+	</ul>
+
+</body>

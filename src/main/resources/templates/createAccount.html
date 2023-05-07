@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+
+<head>
+	<title>Tao tai khoan</title>
+</head>
+
+<body>
+	<h1>Thông tin tài khoản</h1>
+	<form th:action="@{/account/create}" method="post">
+		<table th:object="${account}">
+			<tr>
+				<td th:text="'Tên đăng nhập: '"></td>
+				<td><input type="text" th:field="*{username}"></td>
+				<td th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Mật khẩu: '"></td>
+				<td><input type="password" th:field="*{password}"></td>
+				<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Đăng kí"></td>
+				<td><button><a th:href="@{/}" th:text="'Trang chủ'"></a></button></td>
+			</tr>
+		</table>
+
+	</form>
+</body>
+
+</html>

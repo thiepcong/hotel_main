@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Thông tin phòng</title>
+</head>
+
+<body>
+	<h1>Đặt phòng <span th:text="${room.name}"></span></h1>
+	<form th:action="@{/booking}" method="post" th:object="${booking}">
+	
+		<table>
+			<tr>
+				<td th:text="'Ngày nhận: '" align="left"></td>
+				<td>
+					<input type="date" th:field="*{checkin}">
+				</td>
+			</tr>
+			<tr>
+				<td th:text="'Ngày trả: '" align="left"></td>
+				<td>
+					<input type="date" th:field="*{checkout}">
+				</td>
+			</tr>
+			
+			<tr th:if="${message}">
+				<td colspan="2" th:text="${message}"></td>
+			</tr>
+ 		
+			<tr>
+				<td th:text="'Ghi chú: '" align="left"></td>
+				<td>
+					<input type="text" th:field="*{note}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" value="Xác nhận">
+				</td>
+				<td>
+					<button><a th:href="@{/room}" th:text="'Huỷ đặt phòng'"></a></button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+
+</html>

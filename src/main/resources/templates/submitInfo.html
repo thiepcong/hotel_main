@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+
+<head>
+	<title>Tao tai khoan</title>
+</head>
+
+<body>
+	<h1>Thông tin cá nhân</h1>
+	<form th:action="@{/account/submitInfo}" method="post">
+		<table th:object="${user}">
+			<tr>
+				<td th:text="'Họ tên: '"></td>
+				<td><input type="text" th:field="*{fullname}"></td>
+				<td th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Căn cước công dân: '"></td>
+				<td><input type="text" th:field="*{idCard}"></td>
+				<td th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Số điện thoại: '"></td>
+				<td><input type="text" th:field="*{phoneNumber}"></td>
+				<td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Email(nếu có): '"></td>
+				<td><input type="email" th:field="*{email}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Địa chỉ: '"></td>
+				<td><input type="text" th:field="*{address}"></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Đăng kí"></td>
+				<td><button><a th:href="@{/}" th:text="'Trang chủ'"></a></button></td>
+			</tr>
+		</table>
+
+	</form>
+</body>
+
+</html>

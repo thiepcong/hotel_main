@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Đặt phòng</title>
+</head>
+
+<body>
+	<h1>Danh sách đặt phòng</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>Số phòng</th>
+				<th>Khách hàng</th>
+				<th>Số CCCD</th>
+				<th>Loại</th>
+				<th>Giá phòng</th>
+				<th>Ngày nhận</th>
+				<th>Ngày trả</th>
+				<th>Tổng số tiền</th>
+				<th>Nhận phòng</th>
+				<th>Thanh toán</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr th:each="booking:${bookings}">
+				<td th:text="${booking.room.name}" align="center"></td>
+				<td th:text="${booking.client.user.fullname}" align="center"></td>
+				<td th:text="${booking.client.user.idCard}" align="center"></td>
+				<td th:text="${booking.room.type}" align="center"></td>
+				<td th:text="${booking.room.price}" align="center"></td>
+				<td th:text="${booking.checkin}" align="center"></td>
+				<td th:text="${booking.checkout}" align="center"></td>
+				<td th:text="${booking.totalPrice}" align="center"></td>
+
+				<td th:if="${booking.isReceive}" th:text="'Đã nhận phòng'" align="center"></td>
+				<td th:unless="${booking.isReceive}" th:text="'Chưa nhận phòng'" align="center"></td>
+
+				<td th:if="${booking.isPaid}" th:text="'Đã thanh toán'" align="center"></td>
+				<td th:unless="${booking.isPaid}" th:text="'Chưa thanh toán'" align="center"></td>
+
+				<td>
+					<button><a th:href="@{/manage/booking/cancel/{id}(id=${booking.id})}" th:text="'Huỷ đặt phòng'"
+							align="center"></a></button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<button><a th:href="@{/}" th:text="'Trang chủ'"></a></button>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Đăng Xuất</title>
+	<meta charset="UTF-8">
+</head>
+
+<body>
+	<li><a th:href="@{/}" th:text="'Trang chủ'"></a></li>
+	<h1>Bạn chắc chắn muốn đăng xuất?</h1>
+	<table>
+		<tr>
+			<td>
+				<form th:action="logout" method="post">
+					<button>Đăng xuất</button>
+				</form>
+			</td>
+		</tr>
+	</table>
+</body>
+
+</html>
