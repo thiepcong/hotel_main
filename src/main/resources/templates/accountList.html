@@ -3,60 +3,185 @@
 
 <head>
 	<title>Tài khoản</title>
+	<style>
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+			margin: 0;
+			padding: 0;
+			background-color: #f2f2f2;
+		}
+
+		h1 {
+			text-align: center;
+			margin-top: 50px;
+			margin-bottom: 30px;
+		}
+
+		table {
+			margin: auto;
+			border-collapse: collapse;
+			width: 90%;
+			background-color: white;
+			box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+			border-radius: 10px;
+			overflow: hidden;
+			margin-bottom: 50px;
+		}
+
+		th,
+		td {
+			padding: 10px;
+			text-align: left;
+		}
+
+		th {
+			background-color: #007bff;
+			color: white;
+		}
+
+		td {
+			border-bottom: 1px solid #ddd;
+		}
+
+		td button {
+			padding: 10px;
+			background-color: #007bff;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+		}
+
+		td button:hover {
+			background-color: #0062cc;
+		}
+
+		a {
+			color: white;
+			text-decoration: none;
+		}
+
+		button a {
+			color: white;
+			text-decoration: none;
+		}
+
+		button a:hover {
+			color: white;
+			text-decoration: none;
+		}
+
+		button {
+			background-color: #007bff;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+			padding: 10px 20px;
+			margin: 10px;
+			float: right;
+		}
+
+		button:hover {
+			background-color: #0062cc;
+		}
+		
+		.nav-menu {
+		  display: flex;
+		  justify-content: center;
+		  margin-bottom: 50px;
+		  list-style: none;
+		}
+		
+		.nav-link {
+		  display: block;
+		  padding: 10px 20px;
+		  color: #333;
+		  text-decoration: none;
+		  font-size: 16px;
+		  border-radius: 5px;
+		  transition: all 0.2s ease-in-out;
+		  border: 2px solid transparent;
+		}
+		
+		.nav-link:hover {
+		  background-color: #eee;
+		}
+		
+		.nav-link.active {
+		  background-color: #4caf50;
+		  color: #fff;
+		  border-color: #4caf50;
+		}	
+	</style>
 </head>
 
 <body>
-	<h1>Danh sách tài khoản</h1>
-	<table>
-		<thead>
-			<tr>
-				<th>Username</th>
-				<th>Trạng thái</th>
-				<th>Vai trò</th>
-				<th>Ngày tạo</th>
-				<th>Họ tên</th>
-				<th>Số CCCD</th>
-			</tr>
-		</thead>
-
-		<tbody>
-			<tr th:each="account:${accounts}">
-				<td th:text="${account.username}" align="center"></td>
-
-				<td th:if="${account.isActive}" th:text="'Hoạt động'" align="center"></td>
-				<td th:unless="${account.isActive}" th:text="'Bị khoá'" align="center"></td>
-
-				<td th:switch="${account.roles}">
-					<span th:case="'ROLE_MANAGER'" th:text="'Quản lý'"></span>
-					<span th:case="'ROLE_RECEPTIONIST'" th:text="'Tiếp tân'"></span>
-					<span th:case="'ROLE_USER'" th:text="'Khách hàng'"></span>
-				</td>
-
-				<td th:text="${account.createdAt}" align="center"></td>
-				<td th:text="${account.user.fullname}" align="center"></td>
-				<td th:text="${account.user.idCard}" align="center"></td>
-
-				<td th:if="${account.isActive}">
-					<button><a th:href="@{/account/disable/{id}(id=${account.id})}" th:text="'Khoá'"
-							align="center"></a></button>
-				</td>
-				<td th:unless="${account.isActive}">
-					<button><a th:href="@{/account/enable/{id}(id=${account.id})}" th:text="'Khôi phục'"
-							align="center"></a></button>
-				</td>
-				<td>
-					<button><a th:href="@{/account/role/{id}(id=${account.id})}" th:text="'Change role'">
-					</a></button>
-				</td>
-				<td>
-					<button><a th:href="@{/account/delete/{id}(id=${account.id})}" th:text="'Xóa Tài Khoản'">
-					</a></button>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-
-	<button><a th:href="@{/}" th:text="'Trang chủ'"></a></button>
+	<header>
+	    <nav>
+		  <ul class="nav-menu">
+		    <li><a th:href="@{/}" th:text="'Trang chủ'" class="nav-link"></a></li>
+		    <li><a th:href="@{/account/list}" th:text="'Danh sách tài khoản'" class="nav-link"></a></li>
+		    <li><a th:href="@{/account}" th:text="'Tài khoản'" class="nav-link"></a></li>
+		  </ul>
+		</nav>
+    </header>
+	<main>
+		<h1>Danh sách tài khoản</h1>
+		<table>
+			<thead>
+				<tr>
+					<th>Username</th>
+					<th>Trạng thái</th>
+					<th>Vai trò</th>
+					<th>Ngày tạo</th>
+					<th>Họ tên</th>
+					<th>Số CCCD</th>
+				</tr>
+			</thead>
+	
+			<tbody>
+				<tr th:each="account:${accounts}">
+					<td th:text="${account.username}" align="center"></td>
+	
+					<td th:if="${account.isActive}" th:text="'Hoạt động'" align="center"></td>
+					<td th:unless="${account.isActive}" th:text="'Bị khoá'" align="center"></td>
+	
+					<td th:switch="${account.roles}">
+						<span th:case="'ROLE_MANAGER'" th:text="'Quản lý'"></span>
+						<span th:case="'ROLE_RECEPTIONIST'" th:text="'Tiếp tân'"></span>
+						<span th:case="'ROLE_USER'" th:text="'Khách hàng'"></span>
+					</td>
+	
+					<td th:text="${account.createdAt}" align="center"></td>
+					<td th:text="${account.user.fullname}" align="center"></td>
+					<td th:text="${account.user.idCard}" align="center"></td>
+	
+					<td th:if="${account.isActive}">
+						<button><a th:href="@{/account/disable/{id}(id=${account.id})}" th:text="'Khoá'"
+								align="center"></a></button>
+					</td>
+					<td th:unless="${account.isActive}">
+						<button><a th:href="@{/account/enable/{id}(id=${account.id})}" th:text="'Khôi phục'"
+								align="center"></a></button>
+					</td>
+					<td>
+						<button><a th:href="@{/account/role/{id}(id=${account.id})}" th:text="'Đổi vai trò quản lý-khách'">
+						</a></button>
+					</td>
+					<td>
+						<button><a th:href="@{/account/delete/{id}(id=${account.id})}" th:text="'Xóa Tài Khoản'">
+						</a></button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</main>
+	<footer>
+      <p style="text-align: center;">&copy; 2023 Nhóm 8. All rights reserved.</p>
+    </footer>
 </body>
 
 </html>

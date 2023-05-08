@@ -71,18 +71,18 @@ public class AccountController {
 		return "account"; // đến trang account.html
 	}
 
-	@GetMapping("/submitInfo") // xử lý yêu cầu HTTP trên đường dẫn "/account/submitInfo"
-	public String submitInfo(Model model) {
+	@GetMapping("/signup") // xử lý yêu cầu HTTP trên đường dẫn "/account/signup"
+	public String signup(Model model) {
 		model.addAttribute("user", new User()); // thêm data User vào model, tên là user
-		return "submitInfo"; // đến trang submitInfo.html
+		return "signup"; // đến trang signup.html
 	}
 	
 	// sử dụng để nhận thông tin của trang đăng ký tài khoản
-	@PostMapping("/submitInfo") // nhận data từ đường dẫn "account/submitInfo" 
+	@PostMapping("/signup") // nhận data từ đường dẫn "account/signup" 
 	public String submitClientInfo(Model model, 
 			@Valid User user, Errors errors, @SessionAttribute("addedUser") User addedUser) {
-		if(errors.hasErrors()) { // nếu có lỗi thì quay lại "submitInfo.html"
-			return "submitInfo";
+		if(errors.hasErrors()) { // nếu có lỗi thì quay lại "signup.html"
+			return "signup";
 		}
 		// nếu không lỗi 
 		// đưa data vào trong thuộc tính addedUser của session.

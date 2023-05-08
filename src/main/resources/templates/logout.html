@@ -4,10 +4,85 @@
 <head>
 	<title>Đăng Xuất</title>
 	<meta charset="UTF-8">
+	<style>
+		/* Định dạng toàn bộ trang web */
+		body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+		}
+		
+		/* Định dạng tiêu đề */
+		h1 {
+			text-align: center;
+			margin-top: 50px;
+		}
+		
+		/* Định dạng bảng */
+		table {
+			margin: 0 auto;
+			width: 50%;
+			border-collapse: collapse;
+		}
+		
+		td {
+			padding: 10px;
+			text-align: center;
+			border: 1px solid #ddd;
+		}
+		
+		button {
+			background-color: #4CAF50;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			cursor: pointer;
+		}
+		
+		button:hover {
+			background-color: #3e8e41;
+		}
+		
+		a {
+			text-decoration: none;
+			color: white;
+		}
+
+		.nav-menu {
+		  display: flex;
+		  justify-content: center;
+		  margin-bottom: 50px;
+		  list-style: none;
+		}
+		
+		.nav-link {
+		  display: block;
+		  padding: 10px 20px;
+		  color: #333;
+		  text-decoration: none;
+		  font-size: 16px;
+		  border-radius: 5px;
+		  transition: all 0.2s ease-in-out;
+		  border: 2px solid transparent;
+		}
+		
+		.nav-link:hover {
+		  background-color: #eee;
+		}
+		
+		.nav-link.active {
+		  background-color: #4caf50;
+		  color: #fff;
+		  border-color: #4caf50;
+		}
+	</style>
 </head>
 
 <body>
-	<li><a th:href="@{/}" th:text="'Trang chủ'"></a></li>
+	<nav>
+		<ul class="nav-menu">
+			<li><a th:href="@{/}" th:text="'Trang chủ'" class="nav-link"></a></li>
+		</ul>
+	</nav>
 	<h1>Bạn chắc chắn muốn đăng xuất?</h1>
 	<table>
 		<tr>

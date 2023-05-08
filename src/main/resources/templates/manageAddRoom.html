@@ -3,43 +3,125 @@
 
 <head>
 	<title>Thêm phòng</title>
+	<style>
+		body {
+			background-color: #f2f2f2;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		h1 {
+			text-align: center;
+		}
+		form {
+			margin: auto;
+			width: 50%;
+			padding: 20px;
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+		}
+		table {
+			margin: auto;
+		}
+		input[type=text], input[type=number] {
+			width: 100%;
+			padding: 12px 20px;
+			margin: 8px 0;
+			box-sizing: border-box;
+			border: 2px solid #ccc;
+			border-radius: 4px;
+			background-color: #f8f8f8;
+			resize: none;
+		}
+		input[type=submit], button {
+			background-color: #4CAF50;
+			color: white;
+			padding: 14px 20px;
+			margin: 8px 0;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			width: 100%;
+		}
+		input[type=submit]:hover, button:hover {
+			background-color: #45a049;
+		}
+
+
+		.nav-menu {
+		  display: flex;
+		  justify-content: center;
+		  margin-bottom: 50px;
+		  list-style: none;
+		}
+		
+		.nav-link {
+		  display: block;
+		  padding: 10px 20px;
+		  color: #333;
+		  text-decoration: none;
+		  font-size: 16px;
+		  border-radius: 5px;
+		  transition: all 0.2s ease-in-out;
+		  border: 2px solid transparent;
+		}
+		
+		.nav-link:hover {
+		  background-color: #eee;
+		}
+		
+		.nav-link.active {
+		  background-color: #4caf50;
+		  color: #fff;
+		  border-color: #4caf50;
+		}
+	</style>
 </head>
 
 <body>
-	<h1>Thêm phòng</h1>
-	<form th:object="${room}" th:action="@{/manage/room/add}" method="post">
-		<table>
-			<tr>
-				<td th:text="'Tên phòng: '" align="left"></td>
-				<td><input type="text" th:field="*{name}"></td>
-			</tr>
-			<tr>
-				<td th:text="'Loại phòng: '" align="left"></td>
-				<td>
-					<input type="radio" name="loaiphong" th:field="${room.type}" th:value="'Thường'" th:text="'Thường'"
-						checked>
-					<input type="radio" name="loaiphong" th:field="${room.type}" th:value="'VIP'" th:text="'VIP'">
-				</td>
-			</tr>
-			<tr>
-				<td th:text="'Giá phòng: '" align="left"></td>
-				<td><span><input type="number" th:field="${room.price}"></span><span th:text="'VNĐ/ngày'"></span></td>
-			</tr>
-			<tr>
-				<td th:text="'Chi tiết: '" align="left"></td>
-				<td><input type="text" th:field="${room.description}"></td>
-			</tr>
-			<tr>
-				<td th:text="'Hình ảnh: '" align="left"></td>
-				<td><input type="text" th:field="${room.image}"></td>
-			</tr>
-			<tr>
-				<td>
-					<button><a th:href="@{/}" th:text="'Trang chủ'"></a></button>
-				</td>
-				<td><input type="submit" value="Xác nhận"></td>
-			</tr>
-		</table>
-	</form>
-
+	<header>
+	    <nav>
+		  <ul class="nav-menu">
+		    <li><a th:href="@{/}" th:text="'Trang chủ'" class="nav-link"></a></li>
+		    <li><a th:href="@{/manage/room}" th:text="'Danh sách phòng'" class="nav-link"></a></li>
+		    <li><a th:href="@{/account}" th:text="'Tài khoản'" class="nav-link"></a></li>
+		  </ul>
+		</nav>
+    </header>
+	<main>
+		<h1>Thêm phòng</h1>
+		<form th:object="${room}" th:action="@{/manage/room/add}" method="post">
+			<table>
+				<tr>
+					<td th:text="'Tên phòng: '" align="left"></td>
+					<td><input type="text" th:field="*{name}"></td>
+				</tr>
+				<tr>
+					<td th:text="'Loại phòng: '" align="left"></td>
+					<td>
+						<input type="radio" name="loaiphong" th:field="${room.type}" th:value="'Thường'" th:text="'Thường'"
+							checked>
+						<input type="radio" name="loaiphong" th:field="${room.type}" th:value="'VIP'" th:text="'VIP'">
+					</td>
+				</tr>
+				<tr>
+					<td th:text="'Giá phòng: '" align="left"></td>
+					<td><span><input type="number" th:field="${room.price}"></span><span th:text="'VNĐ/ngày'"></span></td>
+				</tr>
+				<tr>
+					<td th:text="'Chi tiết: '" align="left"></td>
+					<td><input type="text" th:field="${room.description}"></td>
+				</tr>
+				<tr>
+					<td th:text="'Hình ảnh: '" align="left"></td>
+					<td><input type="text" th:field="${room.image}"></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Xác nhận"></td>
+				</tr>
+			</table>
+		</form>
+	</main>
+	<footer>
+      <p style="text-align: center;">&copy; 2023 Nhóm 8. All rights reserved.</p>
+    </footer>
 </body>

@@ -4,11 +4,101 @@
 <head>
 	<title>Login</title>
 	<meta charset="UTF-8">
+	<style>
+		body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+		}
+
+		h1 {
+			text-align: center;
+			margin-top: 50px;
+		}
+
+		form {
+			margin: 50px auto;
+			width: 50%;
+			border: 1px solid #ccc;
+			padding: 20px;
+			background-color: #fff;
+			border-radius: 5px;
+			box-shadow: 0 0 5px #ccc;
+		}
+
+		table {
+			width: 100%;
+		}
+
+		td {
+			padding: 10px;
+		}
+
+		input[type="text"],
+		input[type="password"] {
+			padding: 10px;
+			border-radius: 3px;
+			border: 1px solid #ccc;
+			width: 100%;
+		}
+
+		button {
+			background-color: #4CAF50;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 3px;
+			cursor: pointer;
+			margin-top: 10px;
+		}
+
+		button:hover {
+			background-color: #45a049;
+		}
+
+		a {
+			text-decoration: none;
+			color: #fff;
+		}
+		
+		.nav-menu {
+		  display: flex;
+		  justify-content: center;
+		  margin-bottom: 50px;
+		  list-style: none;
+		}
+		
+		.nav-link {
+		  display: block;
+		  padding: 10px 20px;
+		  color: #333;
+		  text-decoration: none;
+		  font-size: 16px;
+		  border-radius: 5px;
+		  transition: all 0.2s ease-in-out;
+		  border: 2px solid transparent;
+		}
+		
+		.nav-link:hover {
+		  background-color: #eee;
+		}
+		
+		.nav-link.active {
+		  background-color: #4caf50;
+		  color: #fff;
+		  border-color: #4caf50;
+		}
+		
+	</style>
 </head>
 
 <body>
-	<li><a th:href="@{/}" th:text="'Trang chủ'"></a></li>
-	<h1>Đăng Nhập</h1>
+	<nav>
+		<ul class="nav-menu">
+			<li><a th:href="@{/}" th:text="'Trang chủ'" class="nav-link"></a></li>
+		</ul>
+	</nav>
+	<main>
+		<h1>Đăng Nhập</h1>
 	<form th:action="login" method="post">
 		<table>
 			<tr>
@@ -21,10 +111,14 @@
 			</tr>
 			<tr>
 				<td><button>Đăng nhập</button></td>
-				<td><button><a th:href="@{/account/submitInfo}" th:text="'Đăng kí tài khoản'"></a></button></td>
+				<td><button><a th:href="@{/account/signup}" th:text="'Đăng kí tài khoản'"></a></button></td>
 			</tr>
 		</table>
 	</form>
+	</main>
+	<footer>
+      <p style="text-align: center;">&copy; 2023 Nhóm 8. All rights reserved.</p>
+    </footer>
 </body>
 
 </html>

@@ -1,31 +1,82 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Nhóm 8 </title>
-	<meta charset="UTF-8">
+  <title>Nhóm 8 </title>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+    .center {
+      text-align: center;
+    }
+    .card {
+      background-color: #ccc;
+      color: #fff;
+      padding: 10px;
+    }
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    li{
+      text-decoration: none;
+    }
+    .list-container {
+      margin: 20px auto;
+      max-width: 600px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+    .button {
+      display: inline-block;
+      padding: 8px 16px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      background-color: #4CAF50;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-bottom: 10px;
+    }
+    .button:hover {
+      background-color: #3e8e41;
+    }
+    .button:active {
+      background-color: #1e4923;
+    }
+  </style>
 </head>
 
 <body>
-	<h1>Xin chào <span th:if="${account}" th:text="${account.user.fullname}"></span><span>!</span></h1>
-
-	<ul>
-		<span th:if="${account}" th:switch="${account.roles}">
-			<span th:case="ROLE_USER">
-				<li><a th:href="@{/room}" th:text="'Xem danh sách các phòng'"></a></li>
-				<li><a th:href="@{/booking/list}" th:text="'Xem Danh sách đặt phòng'"></a></button></li>
-			</span>
-			<span th:case="ROLE_ADMIN">
-				<li><a th:href="@{/account/list}" th:text="'Quản lý tài khoản'"></a></li>
-			</span>
-			<span th:case="ROLE_MANAGER">
-				<li><a th:href="@{/manage/room}" th:text="'Quản lý phòng'"></a></li>
-				<!-- <td><button><a th:href="@{/manage/booking}" th:text="'Yêu cầu đặt phòng'"></a></button></td> -->
-			</span>
-		</span>
-		<span th:unless="${account}">
-			<li><a th:href="@{/room}" th:text="'Xem danh sách các phòng'"></a></li>
-		</span>
-		<li><a th:href="@{/account}" th:text="'Tài khoản'"></a></li>
-	</ul>
-
+  <div class="list-container">
+    <h1 class="center">Xin chào <span th:if="${account}" th:text="${account.user.fullname}"></span><span>!</span></h1>
+    <ul class="center">
+      <span  th:if="${account}" th:switch="${account.roles}">
+        <span th:case="ROLE_USER">
+          <li><a th:href="@{/room}" class="button"><div>Xem danh sách các phòng</div></a></li>
+          <li><a th:href="@{/booking/list}" class="button"><div>Xem Danh sách đặt phòng</div></a></li>
+        </span>
+        <span th:case="ROLE_ADMIN">
+          <li><a th:href="@{/account/list}" class="button"><div>Quản lý tài khoản</div></a></li>
+        </span>
+        <span th:case="ROLE_MANAGER">
+          <li><a th:href="@{/manage/room}" class="button"><div>Quản lý phòng</div></a></li>
+          <li><a th:href="@{/manage/booking}" class="button"><div>Yêu cầu đặt phòng</div></a></li>
+        </span>
+      </span>
+      <span  th:unless="${account}">
+        <li><a th:href="@{/room}" class="button"><div>Xem danh sách các phòng</div></a></li>
+      </span>
+      <li class="center"><a th:href="@{/account}" class="button"><div>Tài khoản</div></a></li>
+    </ul>
+  </div>
 </body>
+</html>
