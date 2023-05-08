@@ -19,6 +19,7 @@ public class Room {
 	private String name;
 	private String type;
 	private Long price;
+	private String image;
 	private String description;
 }
 //Room để lưu thông tin các phòng gồm 5 thuộc tính

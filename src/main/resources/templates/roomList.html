@@ -3,37 +3,49 @@
 
 <head>
 	<title>Danh sách phòng</title>
+	<style>
+		.room-item {
+		  display: flex;
+		  align-items: center;
+		  justify-content: space-between;
+		  margin-bottom: 20px;
+		}
+		
+		.room-info {
+		  margin-left: 20px;
+		  flex-grow: 1;
+		}
+		
+		.room-buttons {
+		  display: flex;
+		  align-items: center;
+		  justify-content: flex-end;
+		}
+		
+		.room-button {
+		  display: block;
+		}
+
+	</style>
 </head>
 
 <body>
-	<h1>Danh sách phòng</h1>
-	<table>
-		<thead>
-			<tr>
-				<th>Số phòng</th>
-				<th>Loại</th>
-				<th>Giá phòng</th>
-			</tr>
-		</thead>
-
-		<tbody>
-			<tr th:each="room:${rooms}">
-				<td th:text="${room.name}" align="center"></td>
-				<td th:text="${room.type}" align="center"></td>
-				<td th:text="${room.price}" align="center"></td>
-				<td>
-					<button><a th:href="@{/room/details/{id}(id=${room.id})}" th:text="'Chi tiết'"
-							align="center"></a></button>
-				</td>
-				<td>
-					<button><a th:href="@{/booking/{id}(id=${room.id})}" th:text="'Đặt phòng'"
-							align="center"></a></button>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-
 	<button><a th:href="@{/}" th:text="'Trang chủ'"></a></button>
+	<h1>Danh sách phòng</h1>
+	<ul>
+	  <li th:each="room: ${rooms}" class="room-item">
+	    <img th:src="${room.image}" alt="Room image" style="width: 25%;">
+	    <div class="room-info">
+	      <h3 th:text="${room.name}"></h3>
+	      <p th:text="${room.type}"></p>
+	      <p th:text="${room.price} + ',000 VNĐ/ngày'"></p>
+	    </div>
+	    <div class="room-buttons">
+	      <button class="room-button"><a th:href="@{/room/details/{id}(id=${room.id})}" th:text="'Chi tiết'"></a></button>
+	      <button class="room-button"><a th:href="@{/booking/{id}(id=${room.id})}" th:text="'Đặt phòng'"></a></button>
+	    </div>
+	  </li>
+	</ul>
 </body>
 
 </html>

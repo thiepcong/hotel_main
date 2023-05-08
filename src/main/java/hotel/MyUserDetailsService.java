@@ -1,4 +1,4 @@
-package hotel.service;
+package hotel;
 
 import java.util.Optional;
 

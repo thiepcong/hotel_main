@@ -23,11 +23,15 @@
 			</tr>
 			<tr>
 				<td th:text="'Giá phòng: '" align="left"></td>
-				<td><span><input type="number" th:field="${room.price}"></span><span th:text="'/ngày'"></span></td>
+				<td><span><input type="number" th:field="${room.price}"></span><span th:text="'VNĐ/ngày'"></span></td>
 			</tr>
 			<tr>
 				<td th:text="'Chi tiết: '" align="left"></td>
 				<td><input type="text" th:field="${room.description}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Hình ảnh: '" align="left"></td>
+				<td><input type="text" th:field="${room.image}"></td>
 			</tr>
 			<tr>
 				<td>

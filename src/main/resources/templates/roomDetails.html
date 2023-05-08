@@ -6,7 +6,9 @@
 </head>
 
 <body>
+	<button><a th:href="@{/}" th:text="'Trang chủ'"></a></button>
 	<h1>Thông tin phòng <span th:text="${room.name}"></span></h1>
+	
 	<table>
 		<tr>
 			<td th:text="'Tên phòng: '" align="left"></td>
@@ -25,12 +27,16 @@
 			<td th:if="${room.description}" th:text="${room.description}"></td>
 		</tr>
 		<tr>
-			<td>
-				<button><a th:href="@{/}" th:text="'Trang chủ'"></a></button>
-			</td>
+		    <td colspan="2">
+		        <img th:src="${room.image}" alt="Room image" style="width:50%;"/>
+		    </td>
+		</tr>
+
+		<tr>
 			<td>
 				<button><a th:href="@{/booking/{id}(id=${room.id})}" th:text="'Đặt phòng'"></a></button>
-			</td> 
+			</td>
+					
 		</tr>
 	</table>
 

@@ -25,6 +25,15 @@
 			<td th:if="${room.description}" th:text="${room.description}"></td>
 		</tr>
 		<tr>
+			<td th:text="'Url hình ảnh: '" align="left"></td>
+			<td th:text="${room.image}"></td>
+		</tr>
+		<tr>
+		    <td colspan="2">
+		        <img th:src="${room.image}" alt="Room image" style="width:50%;"/>
+		    </td>
+		</tr>
+		<tr>
 			<td>
 				<button><a th:href="@{/}" th:text="'Trang chủ'"></a></button>
 			</td>

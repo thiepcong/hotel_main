@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
 <head>
-	<title>Home page</title>
+	<title>Nhóm 8 </title>
 	<meta charset="UTF-8">
 </head>
 
 <body>
-	<h1>Hotel Team Eight Welcome <span th:if="${account}" th:text="${account.username}"></span><span>!</span></h1>
+	<h1>Xin chào <span th:if="${account}" th:text="${account.user.fullname}"></span><span>!</span></h1>
 
 	<ul>
-		<li><a th:href="@{/}">Home</a></li>
 		<span th:if="${account}" th:switch="${account.roles}">
 			<span th:case="ROLE_USER">
 				<li><a th:href="@{/room}" th:text="'Xem danh sách các phòng'"></a></li>

@@ -72,6 +72,7 @@ public class ManageRoomController {
 		alteredroom.setPrice(room.getPrice());
 		alteredroom.setType(room.getType());
 		alteredroom.setDescription(room.getDescription());
+		alteredroom.setImage(room.getImage());
 		roomRepo.save(alteredroom);
 		return "redirect:/manage/room"; // chuyển đến phương thức manageRoomFrm()
 	}
