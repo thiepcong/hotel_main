@@ -64,6 +64,13 @@ public class ManageRoomController {
 		model.addAttribute("room", room);
 		return "changeRoomDetails";
 	}
+	
+	//xoá phòng theo id
+	@GetMapping("/delete/{id}")
+	public String deleteRoom(@PathVariable("id") Long id) {
+		roomRepo.deleteById(id);
+		return "redirect:/manage/room";
+	}
 
 	@PostMapping("/change") // tiếp nhận data thay đổi phòng trong SessionAttribute("alteredRoom")
 	public String confirmChange(Room room, 

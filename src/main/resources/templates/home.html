@@ -69,7 +69,7 @@
         </span>
         <span th:case="ROLE_MANAGER">
           <li><a th:href="@{/manage/room}" class="button"><div>Quản lý phòng</div></a></li>
-          <li><a th:href="@{/manage/booking}" class="button"><div>Yêu cầu đặt phòng</div></a></li>
+          <li><a th:href="@{/viewReport}" class="button"><div>Xem thống kê đặt phòng</div></a></li>
         </span>
       </span>
       <span  th:unless="${account}">

@@ -115,6 +115,72 @@
 		  color: #fff;
 		  border-color: #4caf50;
 		}
+		.date-selector {
+		    margin: auto;
+		    border-collapse: collapse;
+		    width: 90%;
+		    background-color: white;
+		    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+		    border-radius: 10px;
+		    overflow: hidden;
+		    margin-bottom: 50px;
+		  }
+		  .date-selector td {
+		    padding: 10px;
+		    text-align: left;
+		    font-size: 14px;
+		    color: #444;
+		    border-bottom: 1px solid #ddd;
+		    font-weight: bold;
+		  }
+		  .date-selector td:last-child {
+		    text-align: right;
+		  }
+		  .date-selector input[type="date"] {
+		    font-size: 14px;
+		    padding: 5px;
+		    border: none;
+		    border-bottom: 1px solid #ddd;
+		  }
+		  .date-selector button[type="submit"] {
+		    padding: 10px 20px;
+		    background-color: #007bff;
+		    color: white;
+		    border: none;
+		    border-radius: 5px;
+		    cursor: pointer;
+		    transition: background-color 0.3s;
+		  }
+		  .date-selector button[type="submit"]:hover {
+		    background-color: #0062cc;
+		  }
+		  input[type=date] {
+			  width: 200px;
+			  border-radius: 5px;
+			  padding: 5px;
+			}
+		.revenue-table {
+			font-size: large;
+		  border-collapse: collapse;
+		  width: 100%;
+		}
+		
+		.revenue-table__label {
+		  font-weight: bold;
+		  padding: 10px;
+		  text-align: right;
+		  width: 50%;
+		}
+		
+		.revenue-table__input {
+		  font-size: 2em;
+		  border: none;
+		  background-color: transparent;
+		  width: 100%;
+		  text-align: left;
+		}
+
+
 	</style>
 </head>
 
@@ -130,7 +196,19 @@
 		</nav>
     </header>
 	<main>
-		<h1>Danh sách đặt phòng</h1>
+		<h1>Xem thống kê khách hàng theo thời gian</h1>
+		<form method="get" action="/viewReport">
+		  <table class="date-selector">
+		    <tr>
+		      <td>Ngày bắt đầu:</td>
+		      <td><input type="date" name="startDate" th:value="${startDate}" placeholder="Chọn ngày bắt đầu"></td>
+		      <td>Ngày kết thúc:</td>
+		      <td><input type="date" name="endDate" th:value="${endDate}" placeholder="Chọn ngày kết thúc"></td>
+		      <td><button type="submit">Thống kê</button></td>
+		    </tr>
+		  </table>
+		</form>
+
 		<table>
 			<thead>
 				<tr>
@@ -156,21 +234,27 @@
 					<td th:text="${booking.room.price}+',000'" align="center"></td>
 					<td th:text="${booking.checkin}" align="center"></td>
 					<td th:text="${booking.checkout}" align="center"></td>
-					<td th:text="${booking.totalPrice}" align="center"></td>
+					<td th:text="${booking.totalPrice}+',000'" align="center"></td>
 	
 					<td th:if="${booking.isReceive}" th:text="'Đã nhận phòng'" align="center"></td>
 					<td th:unless="${booking.isReceive}" th:text="'Chưa nhận phòng'" align="center"></td>
 	
 					<td th:if="${booking.isPaid}" th:text="'Đã thanh toán'" align="center"></td>
 					<td th:unless="${booking.isPaid}" th:text="'Chưa thanh toán'" align="center"></td>
-	
-					<td>
-						<button><a th:href="@{/manage/booking/cancel/{id}(id=${booking.id})}" th:text="'Huỷ đặt phòng'"
-								align="center"></a></button>
-					</td>
+				</tr>
+				<tr>
+					<td></td>
 				</tr>
 			</tbody>
 		</table>
+		<table class="revenue-table">
+		  <tr>
+		    <td class="revenue-table__label" th:text="'Tổng doanh thu' + (${startDate} == '' ? '' : ' từ ngày ' + ${startDate}) + (${endDate} == '' ? '' : ' đến ngày ' + ${endDate}) + ':'"></td>
+		    <td class="revenue-table__total"><input type="text" name="total" th:value="${total}+'00'" class="revenue-table__input"></td>
+		  </tr>
+		</table>
+
+
 	</main>
 	<footer>
       <p style="text-align: center;">&copy; 2023 Nhóm 8. All rights reserved.</p>

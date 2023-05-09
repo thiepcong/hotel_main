@@ -1,5 +1,6 @@
 package hotel.data;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
@@ -23,5 +24,6 @@ public interface BookingRepository extends CrudRepository<Booking, Long>{
 
 	//phương thức findAllByRoom(Room room) để tìm kiếm tất cả các đặt trước(booking) của 1 phòng (room) cụ thể
 	List<Booking> findAllByRoom(Room room);
+
 
 }

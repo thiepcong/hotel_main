@@ -154,6 +154,9 @@
 				<td>
 					<button><a th:href="@{/manage/room/change/{id}(id=${room.id})}" th:text="'Chỉnh sửa'"></a></button>
 				</td> 
+				<td>
+					<button><a th:href="@{/manage/room/delete/{id}(id=${room.id})}" th:text="'Xoá phòng: '+${room.name}"></a></button>
+				</td> 
 			</tr>
 		</table>
 	</main>

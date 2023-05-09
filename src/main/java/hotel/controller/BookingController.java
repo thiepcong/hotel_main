@@ -53,9 +53,9 @@ public class BookingController {
 //	đặt phòng theo id
 	@GetMapping("/{id}") // xử lý yêu cầu HTTP trên đường dẫn "/booking/{id}"
 	public String bookingForm(Model model, 
-			// @PathVariable("id") Long id - lấy dữ liệu từ id và gán vào biến id
+			// - lấy dữ liệu từ id và gán vào biến id
 			@PathVariable("id") Long id, 
-			// @ModelAttribute("currentRoom") Room room) - lấy dữ liệu trong currentRoom và gán vào biến room
+			// - lấy dữ liệu trong currentRoom và gán vào biến room
 			@ModelAttribute("currentRoom") Room room) {
 		Booking booking = new Booking();
 		Room room2 = roomRepo.findById(id).orElse(null); // tìm phòng theo id trong csdl - orElse(null) nếu ko có thì = null
@@ -65,6 +65,7 @@ public class BookingController {
 			room.setPrice(room2.getPrice());
 			room.setType(room2.getType());
 			room.setDescription(room2.getDescription());
+			room.setImage(room2.getImage());
 		}
 //		đưa thông tin phòng và thông tin thuê phòng vào model 
 		model.addAttribute("room", room2);
