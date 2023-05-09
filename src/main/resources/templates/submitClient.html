@@ -119,6 +119,10 @@
 					<td th:if="${#fields.hasErrors('bankAccount')}" th:errors="*{bankAccount}"></td>
 				</tr>
 				<tr>
+                	<td th:text="'Ghi chú: '"></td>
+	                <td><input type="text" th:field="*{note}"></td>
+	            </tr>
+				<tr>
 					<td></td>
 					<td class="submit-button" ><input type="submit" value="Đăng kí"></td>
 				</tr>

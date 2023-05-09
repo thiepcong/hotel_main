@@ -122,7 +122,11 @@ public class AccountController {
 		
 		User addedUser = (User) session.getAttribute("addedUser");
 		Client addedClient = (Client) session.getAttribute("addedClient");
-
+		addedClient.setAddress(addedUser.getAddress());
+		addedClient.setPhoneNumber(addedUser.getPhoneNumber());
+		addedClient.setEmail(addedUser.getEmail());
+		addedClient.setFullname(addedUser.getFullname());
+		addedClient.setIdCard(addedUser.getIdCard());
 		// lưu data vào csdl gồm user, account và client
 		userRepo.save(addedUser);
 		
