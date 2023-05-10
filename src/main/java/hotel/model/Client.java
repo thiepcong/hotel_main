@@ -30,7 +30,7 @@ public class Client {
 	private String address;
 	@NotBlank(message = "Tài khoản ngân hàng không được bỏ trống")
 	private String bankAccount;
-	private String note;// ghi chú khác về khách hàng	
+	private String clientNote;// ghi chú khác về khách hàng	
 	@OneToOne(targetEntity = User.class, cascade = CascadeType.MERGE)
 	private User user;// thuộc tính User là khóa ngoại của Client 1 user chỉ có 1 client
 }

@@ -74,13 +74,16 @@ public class AccountController {
 	@GetMapping("/signup") // xử lý yêu cầu HTTP trên đường dẫn "/account/signup"
 	public String signup(Model model) {
 		model.addAttribute("user", new User()); // thêm data User vào model, tên là user
+		model.addAttribute("client", new Client());
 		return "signup"; // đến trang signup.html
 	}
 	
 	// sử dụng để nhận thông tin của trang đăng ký tài khoản
 	@PostMapping("/signup") // nhận data từ đường dẫn "account/signup" 
 	public String submitClientInfo(Model model, 
-			@Valid User user, Errors errors, @SessionAttribute("addedUser") User addedUser) {
+			@Valid User user,@Valid Client client, Errors errors,
+			@SessionAttribute("addedUser") User addedUser,
+			@SessionAttribute("addedClient") Client addedClient) {
 		if(errors.hasErrors()) { // nếu có lỗi thì quay lại "signup.html"
 			return "signup";
 		}
@@ -94,51 +97,39 @@ public class AccountController {
 		addedUser.setNote(user.getNote());
 		addedUser.setRole("Khách hàng");
 		
-		model.addAttribute("client", new Client());
-		return "submitClient"; // đến trang submitClient.html
-	}
-	
-	//sử dụng để nhận thông tin thẻ ngân hàng
-	@PostMapping("/submitClient") // nhận data từ đường dẫn "account/submitClient"
-	public String createAccount(Model model, 
-			@Valid Client client, Errors errors, 
-			@SessionAttribute("addedClient") Client addedClient) {
-		if(errors.hasErrors()) {
-			return "submitClient"; // đến trang submitClient.html
-		}
-		
 		addedClient.setBankAccount(client.getBankAccount());
-		addedClient.setNote(client.getNote());
+		addedClient.setClientNote(client.getClientNote());
 		model.addAttribute("account", new Account());
-		return "createAccount"; // đến trang createAccount.html - trang đăng nhập
+		return "createAccount"; // đến trang submitClient.html
 	}
-
 	//sử dụng để nhận thông tin đăng nhập
-	@PostMapping("/create")// nhận data từ đường dẫn "account/create"
-	public String registerAccount(@Valid Account account, Errors errors, HttpSession session) {
-		if(errors.hasErrors()) { // nếu có lỗi thì quay lại trang đăng nhập
-			return "createAccount";
+		@PostMapping("/create")// nhận data từ đường dẫn "account/create"
+		public String registerAccount(@Valid Account account, Errors errors, HttpSession session) {
+			if(errors.hasErrors()) { // nếu có lỗi thì quay lại trang đăng nhập
+				return "createAccount";
+			}
+			
+			User addedUser = (User) session.getAttribute("addedUser");
+			Client addedClient = (Client) session.getAttribute("addedClient");
+			addedClient.setAddress(addedUser.getAddress());
+			addedClient.setPhoneNumber(addedUser.getPhoneNumber());
+			addedClient.setEmail(addedUser.getEmail());
+			addedClient.setFullname(addedUser.getFullname());
+			addedClient.setIdCard(addedUser.getIdCard());
+			// lưu data vào csdl gồm user, account và client
+			userRepo.save(addedUser);
+			
+			account.setActive(true);
+			account.setRoles("ROLE_USER");		
+			account.setUser(addedUser);
+			accountRepo.save(account);
+			
+			addedClient.setUser(addedUser);
+			clientRepo.save(addedClient);
+			return "redirect:/"; // chuyển hướng đến hàm getMapping("/")
 		}
-		
-		User addedUser = (User) session.getAttribute("addedUser");
-		Client addedClient = (Client) session.getAttribute("addedClient");
-		addedClient.setAddress(addedUser.getAddress());
-		addedClient.setPhoneNumber(addedUser.getPhoneNumber());
-		addedClient.setEmail(addedUser.getEmail());
-		addedClient.setFullname(addedUser.getFullname());
-		addedClient.setIdCard(addedUser.getIdCard());
-		// lưu data vào csdl gồm user, account và client
-		userRepo.save(addedUser);
-		
-		account.setActive(true);
-		account.setRoles("ROLE_USER");		
-		account.setUser(addedUser);
-		accountRepo.save(account);
-		
-		addedClient.setUser(addedUser);
-		clientRepo.save(addedClient);
-		return "redirect:/"; // chuyển hướng đến hàm getMapping("/")
-	}
+	
+	
 
 	// hiển thị danh sách tài khoản KH cho phép admin có quyền truy cập đến trang accountList
 	@GetMapping("/list")

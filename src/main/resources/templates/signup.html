@@ -114,44 +114,53 @@
 	</nav>
     <main>
 		<h1>Thông tin cá nhân</h1>
-    <form th:action="@{/account/signup}" method="post">
-        <table th:object="${user}">
-            <tr>
-                <td th:text="'Họ tên: '"></td>
-                <td><input type="text" th:field="*{fullname}">
-                    <span class="error" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}"></span>
-                </td>
-            </tr>
-            <tr>
-                <td th:text="'Căn cước công dân: '"></td>
-                <td><input type="text" th:field="*{idCard}">
-                    <span class="error" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}"></span>
-                </td>
-            </tr>
-            <tr>
-                <td th:text="'Số điện thoại: '"></td>
-                <td><input type="text" th:field="*{phoneNumber}">
-                    <span class="error" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
-                </td>
-            </tr>
-            <tr>
-                <td th:text="'Email(nếu có): '"></td>
-                <td><input type="email" th:field="*{email}"></td>
-            </tr>
-            <tr>
-                <td th:text="'Địa chỉ: '"></td>
-                <td><input type="text" th:field="*{address}"></td>
-            </tr>
-            <tr>
-                <td th:text="'Ghi chú: '"></td>
-                <td><input type="text" th:field="*{note}"></td>
-            </tr>
-            <tr>
-                <td class="submit-button"><input type="submit" value="Đăng ký"></td>
-            </tr>
-        </table>
-
-    </form>
+	    <form th:action="@{/account/signup}" method="post">
+	        <table>
+	            <tr>
+	                <td th:text="'Họ tên: '"></td>
+	                <td><input type="text" th:field="*{user.fullname}">
+	                    <span class="error" th:if="${#fields.hasErrors('user.fullname')}" th:errors="*{user.fullname}"></span>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td th:text="'Căn cước công dân: '"></td>
+	                <td><input type="text" th:field="*{user.idCard}">
+	                    <span class="error" th:if="${#fields.hasErrors('user.idCard')}" th:errors="*{user.idCard}"></span>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td th:text="'Số điện thoại: '"></td>
+	                <td><input type="text" th:field="*{user.phoneNumber}">
+	                    <span class="error" th:if="${#fields.hasErrors('user.phoneNumber')}" th:errors="*{user.phoneNumber}"></span>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td th:text="'Email(nếu có): '"></td>
+	                <td><input type="email" th:field="*{user.email}"></td>
+	            </tr>
+	            <tr>
+	                <td th:text="'Địa chỉ: '"></td>
+	                <td><input type="text" th:field="*{user.address}"></td>
+	            </tr>
+	            <tr>
+	                <td th:text="'Ghi chú: '"></td>
+	                <td><input type="text" th:field="*{user.note}"></td>
+	            </tr>
+	            <tr>
+					<td th:text="'Tài khoản ngân hàng: '"></td>
+					<td><input type="text" th:field="*{client.bankAccount}"></td>
+					<td th:if="${#fields.hasErrors('client.bankAccount')}" th:errors="*{client.bankAccount}"></td>
+				</tr>
+				<tr>
+	            	<td th:text="'Ghi chú: '"></td>
+	                <td><input type="text" th:field="*{client.clientNote}"></td>
+	            </tr>
+	            <tr>
+	                <td class="submit-button"><input type="submit" value="Đăng ký"></td>
+	            </tr>
+	        </table>
+	
+	    </form>
 	</main>
 	<footer>
       <p style="text-align: center;">&copy; 2023 Nhóm 8. All rights reserved.</p>

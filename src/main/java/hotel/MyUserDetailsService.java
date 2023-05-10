@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import hotel.data.AccountRepository;
 import hotel.model.Account;
-import hotel.model.MyUserDetails;
+import hotel.MyUserDetails;
 @Service // đánh dấu class là 1 service 
 // UserDetailsService được sử dụng bởi Spring Security 
 // để load thông tin người dùng khi họ đăng nhập.
