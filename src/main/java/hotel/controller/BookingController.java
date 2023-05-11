@@ -27,9 +27,8 @@ import hotel.data.BookingRepository;
 import hotel.data.ClientRepository;
 import hotel.data.RoomRepository;
 
-@Controller // tiếp nhận và xử lý yêu cầu đặt phòng
-@RequestMapping("/booking") // xử lý yêu cầu HTTP trên đường dẫn "/booking" mức class
-//tạo thuộc tính "currenRoom" được lưu trữ trong session 
+@Controller 
+@RequestMapping("/booking") 
 @SessionAttributes("currentRoom")
 public class BookingController {
 
@@ -42,9 +41,6 @@ public class BookingController {
 	@Autowired
 	private BookingRepository bookingRepo;
 
-//	@ModelAttribute sử dụng để xác định một phương thức trả về đối tượng
-//	Method room() sẽ trả về một đối tượng Room và được gán với tên "currentRoom" trong ModelAttribute
-//	tạo dữ liệu đặt phòng
 	@ModelAttribute("currentRoom")
 	public Room room() {
 		return new Room();
@@ -53,13 +49,11 @@ public class BookingController {
 //	đặt phòng theo id
 	@GetMapping("/{id}") // xử lý yêu cầu HTTP trên đường dẫn "/booking/{id}"
 	public String bookingForm(Model model, 
-			// - lấy dữ liệu từ id và gán vào biến id
 			@PathVariable("id") Long id, 
-			// - lấy dữ liệu trong currentRoom và gán vào biến room
 			@ModelAttribute("currentRoom") Room room) {
 		Booking booking = new Booking();
-		Room room2 = roomRepo.findById(id).orElse(null); // tìm phòng theo id trong csdl - orElse(null) nếu ko có thì = null
-		if (room2 != null) { // nếu có phòng thì cập nhập cào biến room 
+		Room room2 = roomRepo.findById(id).orElse(null); 
+		if (room2 != null) { 
 			room.setId(room2.getId());
 			room.setName(room2.getName());
 			room.setPrice(room2.getPrice());
@@ -67,35 +61,28 @@ public class BookingController {
 			room.setDescription(room2.getDescription());
 			room.setImage(room2.getImage());
 		}
-//		đưa thông tin phòng và thông tin thuê phòng vào model 
 		model.addAttribute("room", room2);
 		model.addAttribute("booking", booking);
-		return "bookingInfo"; // chuyển đến trang thông tin phòng thuê 
+		return "bookingInfo"; 
 	}
 
 	@PostMapping // xử lý data gửi đến trên đường dẫn "/booking" 
 	public String createBooking(Model model, Booking currentBooking, HttpSession session) throws ParseException {
-//		lấy thông tin phòng hiện tại từ session 
+//		lấy thông tin  từ session 
 		Room room = (Room) session.getAttribute("currentRoom");
-//		lấy thông tin tài khoản người dùng hiện tại từ session 
 		Account account = (Account) session.getAttribute("currentAccount");
-//		lấy thông tin ngày nhận và trả phòng trong currentBooking
 		SimpleDateFormat fomatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date dateReceipt = fomatter.parse(currentBooking.getCheckin());
 		Date datePayment = fomatter.parse(currentBooking.getCheckout());
-//		nếu ngày nhận mà lớn hơn hoặc bằng ngày trả thì 
-//		trở lại trang thông tin thuê phòng để điền lại thông tin 
+//		kiểm tra ngày
 		if (dateReceipt.after(datePayment) || dateReceipt.equals(datePayment)) {
 			model.addAttribute("message", "Kiem tra lai thoi gian");
 			model.addAttribute("room", room);
 			return "bookingInfo";
 		}
-//		tìm khách hàng trong csdl với tên người dùng 
 		Client client = clientRepo.findByUser(account.getUser()).orElse(null);
-//		cập nhập thông tin thuê phòng
 		currentBooking.setRoom(room);
 		currentBooking.setClient(client);
-		// tính số milliseconds giữa ngày trả và ngày nhận
 		long diff = datePayment.getTime() - dateReceipt.getTime(); 
 		// chuyển đổi sang số ngày
 		int totalDays = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS); 
@@ -104,7 +91,7 @@ public class BookingController {
 		currentBooking.setCancelled(false);
 		currentBooking.setPaid(false);
 		bookingRepo.save(currentBooking);
-		return "redirect:/room"; // chuyển đến phương thức viewList trong class roomController 
+		return "redirect:/room";  
 	}
 
 	@GetMapping("/list") // xem danh sách các phòng đã đặt
@@ -113,7 +100,6 @@ public class BookingController {
 		Client client = clientRepo.findByUser(account.getUser()).orElse(null);
 		List<Booking> bookings = filterByCancel(bookingRepo.findAllByClient(client));
 //		lấy thông tin tài khoản rồi thông tin khách sau đó lấy ds phòng đã đặt
-//		thêm vào model để chuyển đến cho trang bookingList.html
 		model.addAttribute("bookings", bookings);
 		return "bookingList";
 	}
@@ -131,7 +117,7 @@ public class BookingController {
 
 	@GetMapping("/cancel/{id}") // xử lý yêu cầu hủy phòng rồi về trang danh sách phòng đã thuê
 	public String cancelBooking(@PathVariable("id") Long id) {
-		Booking booking = bookingRepo.findById(id).orElse(null); // tìm phòng theo id trong csdl
+		Booking booking = bookingRepo.findById(id).orElse(null); 
 		if (booking != null) {
 			booking.setCancelled(true);
 			bookingRepo.save(booking);

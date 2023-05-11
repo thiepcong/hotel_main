@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import hotel.model.Account;
 
-public class MyUserDetails implements UserDetails{
+public class UserDetail implements UserDetails{
 	//MyUserDetails  có thể bao gồm các thuộc tính và phương thức khác của UserDetails
 	private static final long serialVersionUID = 1L;
 	//kiểu số dùng để đảm bảo rằng khi lưu trữ đối tượng của lớp MyUserDetails xuống cơ sở dữ liệu,
@@ -23,12 +23,12 @@ public class MyUserDetails implements UserDetails{
 	private List<GrantedAuthority> authorities;// danh sách các quyền được cấp
 	
 	//khởi tạo không tham số
-	public MyUserDetails() {
+	public UserDetail() {
 		
 	}
 	
 	//khởi tạo với tài khoản
-	public MyUserDetails(Account account) {
+	public UserDetail(Account account) {
 		this.username = account.getUsername();
 		this.password = account.getPassword();
 		this.active = account.isActive();

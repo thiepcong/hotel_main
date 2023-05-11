@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import hotel.data.BookingRepository;
 import hotel.model.Booking;
 
-//import QLKS.Entity.Account;
 
 @Controller
 public class HomeController {
@@ -35,13 +34,8 @@ public class HomeController {
 		if (session.getAttribute("currentAccount") != null) {
 			model.addAttribute("account", session.getAttribute("currentAccount"));
 		}
-		// tìm đến trang giao diện homepage.html
 		return "home";
 	}
-//	@GetMapping("/")
-//	public String home() {
-//		return "homepage";
-//	}
 
 	@SuppressWarnings("deprecation")
 	@RequestMapping(method = RequestMethod.GET, value = "/viewReport")
@@ -50,7 +44,7 @@ public class HomeController {
 	                          Model model) {
 	    if (StringUtils.isEmpty(startDateStr) || StringUtils.isEmpty(endDateStr)) {
 	    	float total = 0;
-	        List<Booking> bookings = (List<Booking>) bookingRepo.findAll();
+	        List<Booking> bookings = filterByCancel((List<Booking>) bookingRepo.findAll());
 	        for(Booking booking:bookings) {
 	        	total+=booking.getTotalPrice();
 	        }
@@ -63,7 +57,7 @@ public class HomeController {
 	        LocalDate endDate = LocalDate.parse(endDateStr, formatter);
 
 	        // Lọc danh sách booking theo ngày bắt đầu và kết thúc
-	        List<Booking> bookings = (List<Booking>) bookingRepo.findAll();
+	        List<Booking> bookings = filterByCancel((List<Booking>) bookingRepo.findAll());
 	        List<Booking> filteredBookings = filterAllByCheckBetween(bookings, startDate, endDate);
 	        for(Booking booking:filteredBookings) {
 	        	total+=booking.getTotalPrice();
@@ -79,6 +73,17 @@ public class HomeController {
 	        model.addAttribute("endDate", "");
 	    }
 	    return "viewReport";
+	}
+	
+//	tìm những phòng được đặt bởi khách mà chưa bị hủy
+	private List<Booking> filterByCancel(List<Booking> bookings) {
+		List<Booking> list = new ArrayList<>();
+		for (Booking booking : bookings) {
+			if (booking.isCancelled() == false) { // nếu chưa bị hủy thì cho vào danh sách 
+				list.add(booking);
+			}
+		}
+		return list;
 	}
 
 	// Lọc danh sách booking theo ngày bắt đầu và kết thúc
@@ -104,25 +109,9 @@ public class HomeController {
 		}
 		return "login";
 	}
-//	@GetMapping("/login")
-//	public String login() {
-//		return "login";
-//	}
 
 	@GetMapping("/logout") // tiếp nhận yêu cầu từ trang /logout
 	public String logout(HttpSession session) {
-//		lấy data trong session với name là currentAccount
-//		kiểu dữ liệu là Account 
-//		Account account = (Account) session.getAttribute("currentAccount");
-//		if (account != null) { // nếu tồn tại thì ghi lại vào log
-//			log.info("Log out: " + account);
-//		}
-//		nếu không thì chạy đến trang logout
 		return "logout";
 	}
-//	@GetMapping("/logout")
-//	public String logout() {
-//		return "logout";
-//	}
-	
 }

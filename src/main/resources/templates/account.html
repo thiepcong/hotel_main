@@ -76,6 +76,16 @@
 		  border-color: #4caf50;
 		}
 
+		.nut-dang-nhap{
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+		
+		.dang-nhap{
+			border-radius: 6px;
+		}
 	</style>
 </head>
 
@@ -123,7 +133,7 @@
 				</tr>
 				<tr>
 					<td>
-						<span><button><a th:href="@{logout}" th:text="'Đăng xuất'"></a></button></span>
+						<span><button class="dang-nhap"><a th:href="@{logout}" th:text="'Đăng xuất'"></a></button></span>
 					</td>
 				</tr>
 			</table>
@@ -131,9 +141,9 @@
 		</div>
 	
 		<!--Nếu không có tài khoản-->
-		<div th:unless="${account}">
+		<div th:unless="${account}" class="nut-dang-nhap">
 			<h1>Chưa đăng nhập.</h1>
-			<button><a th:href="@{/login}" th:text="'Đăng nhập'"></a></button>
+			<button class="dang-nhap"><a th:href="@{/login}" th:text="'Đăng nhập'" ></a></button>
 		</div>
 	</main>
 	<footer>

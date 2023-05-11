@@ -15,11 +15,9 @@ import lombok.Data;
 @Entity// đánh dấu lớp Client là một thực thể
 @Table(name = "Client")//Client là tên của bảng trong cơ sở dữ liệu mà lớp client ánh xạ đến
 public class Client {
-	//thuộc tính id là khóa chính và được tự động sinh ra và tự động tăng bởi hqtcsdl
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	//thuộc tính fullname idCard phonenumber bankAccount đều không để giá trị null
 	@NotBlank(message = "Họ tên không để trống")
 	private String fullname;
 	@NotBlank(message = "Mã số CCCD không để trống")
@@ -30,9 +28,7 @@ public class Client {
 	private String address;
 	@NotBlank(message = "Tài khoản ngân hàng không được bỏ trống")
 	private String bankAccount;
-	private String clientNote;// ghi chú khác về khách hàng	
+	private String clientNote;
 	@OneToOne(targetEntity = User.class, cascade = CascadeType.MERGE)
 	private User user;// thuộc tính User là khóa ngoại của Client 1 user chỉ có 1 client
 }
-
-//Client để lưu thông tin khách hàng gồm 9 thuộc tính

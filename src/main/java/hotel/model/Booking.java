@@ -14,7 +14,6 @@ import lombok.Data;
 @Entity// đánh dấu lớp Booking là một thực thể
 @Table(name = "Booking")//Booking là tên của bảng trong cơ sở dữ liệu mà lớp booking ánh xạ đến
 public class Booking {
-	//thuộc tính id là khóa chính và được tự động sinh ra và tự động tăng bởi hqtcsdl 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -25,12 +24,11 @@ public class Booking {
 	@ManyToOne(targetEntity = Client.class, cascade = CascadeType.MERGE)
 	private Client client;//thuộc tính client là khóa ngoại 1 khách hàng có thể đặt nhiều lần
 	
-	private String checkin;//thuộc tính đại diên ngày nhận phòng
-	private String checkout;//ngày trả phòng
-	private Long totalPrice;// tổng tiền
+	private String checkin;
+	private String checkout;
+	private Long totalPrice;
 	private boolean isReceive;//thuộc tính đại diện cho trạng thái khách nhận phòng hay chưa
 	private boolean isPaid;//thuộc tính đại diện cho trạng thái khách thanh toán hay chưa
 	private boolean isCancelled;//thuộc tính đại diện cho trạng thái đơn đặt phòng bị hủy hay chưa
-	private String note;// ghi chú khác về đơn phòng
+	private String note;
 }
-////Booking để lưu thông tin đặt trước phòng gồm 10 thuộc tính

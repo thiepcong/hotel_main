@@ -15,7 +15,6 @@ import lombok.Data;
 @Entity// đánh dấu lớp User là một thực thể
 @Table(name = "User")//User là tên của bảng trong cơ sở dữ liệu mà lớp user ánh xạ đến
 public class User {
-	//thuộc tính id là khóa chính và được tự động sinh ra và tự động tăng bởi hqtcsdl 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;	
@@ -29,9 +28,8 @@ public class User {
 	private String email;
 	private String address;
 	private String role;//thuộc tính role cho biết vai trò của người dùng
-	private String note;// thuộc tính note cho biết những ghi chú thêm về người dùng
+	private String note;
 	private Date registeredAt;
-	//thời gian tạo người dùng sẽ được lấy bằng thời gian thực, và được thực hiện trước khi đưa vào csdl
 	@PrePersist
 	public void register() {
 		this.registeredAt = new Date();

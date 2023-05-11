@@ -12,7 +12,6 @@ import lombok.Data;
 @Entity// đánh dấu lớp Room là một thực thể
 @Table(name = "Room")//Booking là tên của bảng trong cơ sở dữ liệu mà lớp room ánh xạ đến
 public class Room {
-	//thuộc tính id là khóa chính và được tự động sinh ra và tự động tăng bởi hqtcsdl
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -22,4 +21,3 @@ public class Room {
 	private String image;
 	private String description;
 }
-//Room để lưu thông tin các phòng gồm 5 thuộc tính

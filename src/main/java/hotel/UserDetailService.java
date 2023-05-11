@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 
 import hotel.data.AccountRepository;
 import hotel.model.Account;
-import hotel.MyUserDetails;
+import hotel.UserDetail;
 @Service // đánh dấu class là 1 service 
 // UserDetailsService được sử dụng bởi Spring Security 
 // để load thông tin người dùng khi họ đăng nhập.
-public class MyUserDetailsService implements UserDetailsService{
+public class UserDetailService implements UserDetailsService{
 	
 	@Autowired // tự động tiêm các đối tượng để sử dụng các phương thức và thuộc tính 
 	private AccountRepository accountRepo;
@@ -29,7 +29,7 @@ public class MyUserDetailsService implements UserDetailsService{
 		// bằng cách sử dụng account đó và trả về nó.
 		account.orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
 		
-		return account.map(MyUserDetails::new).get();
+		return account.map(UserDetail::new).get();
 	}
 
 }

@@ -12,15 +12,15 @@ import hotel.model.Account;
 import hotel.data.AccountRepository;
 import lombok.extern.slf4j.Slf4j;
 
-@Controller // lấy thông tin tài khoản người dùng
-@RequestMapping("/authen") // xử lý yêu cầu HTTP trên đường dẫn "/authen" mức class
-@SessionAttributes("currentAccount") // tạo thuộc tính currentAccount trong session
-public class AuthenController {
+@Controller 
+@RequestMapping("/authen") 
+@SessionAttributes("currentAccount") 
+public class AuthController {
 
-	@Autowired // tự động tiêm các đối tượng để sử dụng các phương thức và thuộc tính
+	@Autowired 
 	private AccountRepository accountRepo;
 
-	@ModelAttribute("currentAccount") // tạo 1 lớp Account rỗng rồi cho vào model
+	@ModelAttribute("currentAccount") 
 	public Account account() {
 		return new Account();
 	}
@@ -31,10 +31,10 @@ public class AuthenController {
 		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 		// tìm tài khoản có tên currentUsername trong csdl
 		Account account = accountRepo.findByUsername(currentUsername).orElse(null);
-		if (account != null) { // nếu có thì thêm vào model với tên là currentAccount
+		if (account != null) {
 			currentAccount.setup(account);
 		}
-		return "redirect:/"; // chuyển đến hàm getMapping("/")
+		return "redirect:/"; 
 	}
 
 }

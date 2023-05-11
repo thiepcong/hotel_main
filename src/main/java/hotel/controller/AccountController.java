@@ -27,9 +27,7 @@ import hotel.model.Client;
 
 
 @Controller
-@RequestMapping("/account") // xử lý yêu cầu HTTP trên đường dẫn "/account" mức class
-
-//hai thuộc tính "addedUser" tức có tk và "addedClient" tức ko có tk được lưu trữ trong phiên
+@RequestMapping("/account") 
 @SessionAttributes({ "addedUser", "addedClient" })
 public class AccountController {
 
@@ -41,9 +39,7 @@ public class AccountController {
 
 	@Autowired
 	private ClientRepository clientRepo;
-	
-//	@ModelAttribute sử dụng để xác định một phương thức trả về đối tượng
-//	Method addedUser() sẽ trả về một đối tượng User và được gán với tên "addedUser" trong ModelAttribute
+
 	@ModelAttribute("addedUser") 
 	public User addedUser() {
 		return new User();
@@ -61,14 +57,11 @@ public class AccountController {
 
 	@GetMapping // xử lý yêu cầu HTTP trên đường dẫn "/account"
 	public String account(Model model, HttpSession session) {
-//		lấy data trong session với name là currentAccount
-//   	kiểu dữ liệu là Account 
-		if (session.getAttribute("currentAccount") != null) { // nếu tồn tại
+		if (session.getAttribute("currentAccount") != null) { 
 			Account account = (Account) session.getAttribute("currentAccount");
-			// lấy trong tài khoản User hiện tại rồi lưu vào model, đặt tên là account
 			model.addAttribute("account", account); 
 		}
-		return "account"; // đến trang account.html
+		return "account";
 	}
 
 	@GetMapping("/signup") // xử lý yêu cầu HTTP trên đường dẫn "/account/signup"
@@ -84,11 +77,9 @@ public class AccountController {
 			@Valid User user,@Valid Client client, Errors errors,
 			@SessionAttribute("addedUser") User addedUser,
 			@SessionAttribute("addedClient") Client addedClient) {
-		if(errors.hasErrors()) { // nếu có lỗi thì quay lại "signup.html"
+		if(errors.hasErrors()) { 
 			return "signup";
 		}
-		// nếu không lỗi 
-		// đưa data vào trong thuộc tính addedUser của session.
 		addedUser.setFullname(user.getFullname());
 		addedUser.setIdCard(user.getIdCard());
 		addedUser.setPhoneNumber(user.getPhoneNumber());
@@ -100,13 +91,13 @@ public class AccountController {
 		addedClient.setBankAccount(client.getBankAccount());
 		addedClient.setClientNote(client.getClientNote());
 		model.addAttribute("account", new Account());
-		return "createAccount"; // đến trang submitClient.html
+		return "signupAccount"; 
 	}
 	//sử dụng để nhận thông tin đăng nhập
-		@PostMapping("/create")// nhận data từ đường dẫn "account/create"
+		@PostMapping("/create")
 		public String registerAccount(@Valid Account account, Errors errors, HttpSession session) {
-			if(errors.hasErrors()) { // nếu có lỗi thì quay lại trang đăng nhập
-				return "createAccount";
+			if(errors.hasErrors()) { 
+				return "signupAccount";
 			}
 			
 			User addedUser = (User) session.getAttribute("addedUser");
@@ -126,7 +117,7 @@ public class AccountController {
 			
 			addedClient.setUser(addedUser);
 			clientRepo.save(addedClient);
-			return "redirect:/"; // chuyển hướng đến hàm getMapping("/")
+			return "redirect:/";
 		}
 	
 	
@@ -134,9 +125,7 @@ public class AccountController {
 	// hiển thị danh sách tài khoản KH cho phép admin có quyền truy cập đến trang accountList
 	@GetMapping("/list")
 	public String viewAccounts(Model model) {
-		// accountRepo.findAll() tìm tất cả tài khoản trong csdl
 		List<Account> accounts = filterByRole("ROLE_ADMIN", (List<Account>) accountRepo.findAll());
-		// class account để lưu trữ thông tin tài khoản người dùng hiện tại
 		model.addAttribute("accounts", accounts);
 		return "accountList";
 	}
@@ -145,7 +134,7 @@ public class AccountController {
 	private List<Account> filterByRole(String role, List<Account> accounts) {
 		List<Account> list = new ArrayList<>();
 		for (Account account : accounts) {
-			if (!account.getRoles().equals(role)) { // nếu ko phải tài khoản admin
+			if (!account.getRoles().equals(role)) { 
 				list.add(account);
 			}
 		}
@@ -155,12 +144,12 @@ public class AccountController {
 	//  2 hàm dưới là tắt và bật tài khoản người dùng thông qua id
 	@GetMapping("/disable/{id}")
 	public String disableAccount(@PathVariable("id") Long id) {
-		Account account = accountRepo.findById(id).orElse(null);// orElse(null) nếu ko có thì = null
+		Account account = accountRepo.findById(id).orElse(null);
 		if (account.isActive()) {
 			account.setActive(false);
 			accountRepo.save(account);
 		}
-		return "redirect:/account/list"; // chuyển hướng đến hàm getMapping("/list")
+		return "redirect:/account/list"; 
 	}
 
 	@GetMapping("/enable/{id}")
@@ -175,7 +164,7 @@ public class AccountController {
 	@GetMapping("/delete/{id}")
 	public String deleteAccount(@PathVariable("id") Long id) {
 		accountRepo.deleteById(id);
-		return "redirect:/account/list";
+		return "redirect:/account/list";	
 	}
 	@GetMapping("/role/{id}")
 	public String roleAccount(@PathVariable("id") Long id) {
