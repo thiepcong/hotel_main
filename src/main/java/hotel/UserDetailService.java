@@ -22,11 +22,8 @@ public class UserDetailService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) 
 			throws UsernameNotFoundException {
-		// tìm kiếm tài khoản của người dùng dựa trên username
 		// sử dụng Optional, ta có thể tránh được việc xử lý lỗi do giá trị null gây ra
 		Optional<Account> account = accountRepo.findByUsername(username);
-		// Nếu tìm thấy tài khoản, phương thức sẽ tạo một instance mới của MyUserDetails 
-		// bằng cách sử dụng account đó và trả về nó.
 		account.orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
 		
 		return account.map(UserDetail::new).get();

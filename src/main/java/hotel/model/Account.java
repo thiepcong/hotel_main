@@ -11,9 +11,9 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import lombok.Data;
-@Data//tự động tạo các phương thức getter, setter, equals, hashCode và toString cho các thuộc tính của một lớp thông quan thư viện lombok
-@Entity// đánh dấu lớp account là một thực thể 
-@Table(name = "Account")//Account là tên của bảng trong cơ sở dữ liệu mà lớp account ánh xạ đến
+@Data
+@Entity
+@Table(name = "Account")
 
 public class Account {
 	//thuộc tính id là khóa chính và được tự động sinh ra và tự động tăng bởi hqtcsdl 
@@ -21,7 +21,6 @@ public class Account {
 	@GeneratedValue
 	private Long id;
 	
-	//thuộc tính username và password đều phải có ít nhất 5 kí tự
 	@Size(min=5, message = "Tên đăng nhập ít nhất 5 kí tự")
 	private String username;
 	@Size(min=5, message = "Mật khẩu ít nhất 5 kí tự")
@@ -45,7 +44,6 @@ public class Account {
 		this.user = account2.getUser();
 	}
 	
-	//thời gian tạo tài khoản sẽ được lấy bằng thời gian thực, và được thực hiện trước khi đưa vào csdl
 	@PrePersist
 	private void createdAt() {
 		this.createdAt = new Date();

@@ -11,14 +11,13 @@ import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 
-@Data//tự động tạo các phương thức getter, setter, equals, hashCode và toString cho các thuộc tính của một lớp thông quan thư viện lombok
-@Entity// đánh dấu lớp User là một thực thể
-@Table(name = "User")//User là tên của bảng trong cơ sở dữ liệu mà lớp user ánh xạ đến
+@Data
+@Entity
+@Table(name = "User")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;	
-	//thuộc tính fullname idCard phonenumber đều không để giá trị null
 	@NotBlank(message = "Họ tên không để trống")
 	private String fullname;
 	@NotBlank(message = "Mã số CCCD không để trống")

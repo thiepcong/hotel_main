@@ -11,22 +11,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-//bảo mật cho ứng dụng web.
 @Configuration
-@EnableWebSecurity // cho phép Spring Security sử dụng các cấu hình bảo mật
+@EnableWebSecurity
 public class Config extends WebSecurityConfigurerAdapter{
 	
-	@Autowired // tự động tiêm các đối tượng để sử dụng các phương thức và thuộc tính 
+	@Autowired 
 	UserDetailsService userDetailsService;
 	
-	//Phương thức configure(AuthenticationManagerBuilder auth) được sử dụng 
-	// để cấu hình UserDetailsService để lấy thông tin người dùng
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// chỉ định UserDetailsService sẽ được sử dụng để truy vấn thông tin người dùng
 		auth.userDetailsService(userDetailsService);
 	}
 	
-	// cấu hình bảo mật cho các URL trên ứng dụng.
 	protected void configure(HttpSecurity http) throws Exception {
 		// http.authorizeRequests() chỉ định rằng yêu cầu sẽ được xác minh bằng cách nào  
 		// Phương thức antMatchers chỉ định các URL và các quyền truy cập cần thiết để truy cập vào chúng.
@@ -51,7 +46,6 @@ public class Config extends WebSecurityConfigurerAdapter{
 	}
 	
 	@Bean
-	// mã hóa mật khẩu của người dùng trước khi lưu vào cơ sở dữ liệu
 	public PasswordEncoder getPasswordEncoder() {
 		return NoOpPasswordEncoder.getInstance();
 	}

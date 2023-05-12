@@ -11,9 +11,9 @@ import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 
-@Data//tự động tạo các phương thức getter, setter, equals, hashCode và toString cho các thuộc tính của một lớp thông quan thư viện lombok
-@Entity// đánh dấu lớp Client là một thực thể
-@Table(name = "Client")//Client là tên của bảng trong cơ sở dữ liệu mà lớp client ánh xạ đến
+@Data
+@Entity
+@Table(name = "Client")
 public class Client {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,5 +30,5 @@ public class Client {
 	private String bankAccount;
 	private String clientNote;
 	@OneToOne(targetEntity = User.class, cascade = CascadeType.MERGE)
-	private User user;// thuộc tính User là khóa ngoại của Client 1 user chỉ có 1 client
+	private User user;
 }

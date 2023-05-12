@@ -10,9 +10,9 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-@Data//tự động tạo các phương thức getter, setter, equals, hashCode và toString cho các thuộc tính của một lớp thông quan thư viện lombok
-@Entity// đánh dấu lớp Booking là một thực thể
-@Table(name = "Booking")//Booking là tên của bảng trong cơ sở dữ liệu mà lớp booking ánh xạ đến
+@Data
+@Entity
+@Table(name = "Booking")
 public class Booking {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
